@@ -232,6 +232,10 @@ class Profiler {
         instance()->onThreadEnd(jvmti, jni, thread);
     }
 
+    static void JNICALL MethodEntry(jvmtiEnv* jvmti, JNIEnv* jni, jthread thread, jmethodID method) {
+        // noop
+    }
+
     friend class Recording;
 };
 

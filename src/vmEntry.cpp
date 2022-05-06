@@ -186,12 +186,14 @@ bool VM::init(JavaVM* vm, bool attach) {
     callbacks.MonitorContendedEntered = LockTracer::MonitorContendedEntered;
     callbacks.VMObjectAlloc = J9ObjectSampler::VMObjectAlloc;
     callbacks.SampledObjectAlloc = ObjectSampler::SampledObjectAlloc;
+    callbacks.MethodEntry = Profiler::MethodEntry;
     _jvmti->SetEventCallbacks(&callbacks, sizeof(callbacks));
 
     _jvmti->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_VM_DEATH, NULL);
     _jvmti->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_CLASS_LOAD, NULL);
     _jvmti->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_CLASS_PREPARE, NULL);
     _jvmti->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_DYNAMIC_CODE_GENERATED, NULL);
+    _jvmti->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_METHOD_ENTRY, NULL);
 
     if (hotspot_version() == 0 || !CodeHeap::available()) {
         // Workaround for JDK-8173361: avoid CompiledMethodLoad events when possible
