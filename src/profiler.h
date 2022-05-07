@@ -83,6 +83,8 @@ class Profiler {
 
     time_t _start_time;
     volatile bool _timer_is_running;
+    volatile long _method_entry_called;
+    volatile long _method_exit_called;
     pthread_t _timer_thread;
 
     u64 _total_samples;
