@@ -115,6 +115,8 @@ class Profiler {
 
     void onThreadStart(jvmtiEnv* jvmti, JNIEnv* jni, jthread thread);
     void onThreadEnd(jvmtiEnv* jvmti, JNIEnv* jni, jthread thread);
+    void onMethodEntry(jvmtiEnv* jvmti, JNIEnv* jni, jthread thread, jmethodID method);
+    void onMethodExit(jvmtiEnv* jvmti, JNIEnv* jni, jthread thread, jmethodID method, jboolean was_popped_by_exception, jvalue return_value);
 
     const char* asgctError(int code);
     u32 getLockIndex(int tid);
@@ -233,7 +235,11 @@ class Profiler {
     }
 
     static void JNICALL MethodEntry(jvmtiEnv* jvmti, JNIEnv* jni, jthread thread, jmethodID method) {
-        // noop
+        instance()->onMethodEntry(jvmti, jni, thread, method);
+    }
+
+    static void JNICALL MethodExit(jvmtiEnv* jvmti, JNIEnv* jni, jthread thread, jmethodID method, jboolean was_popped_by_exception, jvalue return_value) {
+        instance()->onMethodExit(jvmti, jni, thread, method, was_popped_by_exception, return_value);
     }
 
     friend class Recording;

@@ -144,6 +144,14 @@ void Profiler::onThreadEnd(jvmtiEnv* jvmti, JNIEnv* jni, jthread thread) {
     updateThreadName(jvmti, jni, thread);
 }
 
+void Profiler::onMethodEntry(jvmtiEnv* jvmti, JNIEnv* jni, jthread thread, jmethodID method) {
+    // noop
+}
+
+void Profiler::onMethodExit(jvmtiEnv* jvmti, JNIEnv* jni, jthread thread, jmethodID method, jboolean was_popped_by_exception, jvalue return_value) {
+    // noop
+}
+
 const char* Profiler::asgctError(int code) {
     switch (code) {
         case ticks_no_Java_frame:

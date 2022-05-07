@@ -160,6 +160,9 @@ bool VM::init(JavaVM* vm, bool attach) {
     capabilities.can_generate_vm_object_alloc_events = isOpenJ9() ? 1 : 0;
     capabilities.can_generate_sampled_object_alloc_events = _can_sample_objects ? 1 : 0;
     capabilities.can_get_bytecodes = 1;
+    capabilities.can_access_local_variables = 1;
+    capabilities.can_generate_method_entry_events = 1;
+    capabilities.can_generate_method_exit_events = 1;
     capabilities.can_get_constant_pool = 1;
     capabilities.can_get_source_file_name = 1;
     capabilities.can_get_line_numbers = 1;
