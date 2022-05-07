@@ -147,14 +147,14 @@ void Profiler::onThreadEnd(jvmtiEnv* jvmti, JNIEnv* jni, jthread thread) {
 void Profiler::onMethodEntry(jvmtiEnv* jvmti, JNIEnv* jni, jthread thread, jmethodID method) {
     long cnt = _method_entry_called++;
     if (cnt % 100 == 0) {
-        printf("method entry called: %ld\n", cnt);
+        Log::warn("method entry called: %ld", cnt);
     }
 }
 
 void Profiler::onMethodExit(jvmtiEnv* jvmti, JNIEnv* jni, jthread thread, jmethodID method, jboolean was_popped_by_exception, jvalue return_value) {
     long cnt = _method_exit_called++;
     if (cnt % 100 == 0) {
-        printf("method exit called: %ld\n", cnt);
+        Log::warn("method exit called: %ld", cnt);
     }
 }
 
